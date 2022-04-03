@@ -5,12 +5,10 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 
 class UserProfileManager(BaseUserManager):
-    '''
-    Manager for user profile
-    '''
+    '''Manager for user profile'''
 
     def create_user(self, email, name, password=None):
-        '''
+        '''Return a created user 
         Create a new user profile
         '''
         if not email:
@@ -25,7 +23,7 @@ class UserProfileManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, name, password):
-        '''
+        '''Return a created super_user 
         Create and save a new superuser with given details
         '''
         user = self.create_user(email, name, password)
