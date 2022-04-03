@@ -1,6 +1,6 @@
 import email
 from operator import mod
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
@@ -22,13 +22,15 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
+    @transaction.atomic
     def create_superuser(self, email, name, password):
         '''Return a created super_user 
         Create and save a new superuser with given details
         '''
         user = self.create_user(email, name, password)
 
-        user.is_superuser, user.is_staff = True
+        user.is_superuser = True
+        user.is_staff = True
         user.save(using=self._db)
 
         return user
